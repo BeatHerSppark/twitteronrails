@@ -1,0 +1,33 @@
+<% if user_signed_in? %>
+  <h1> Posts </h1>
+
+  <div id="posts">
+    <% @posts.each do |post| %>
+      <% if post.user == current_user %>
+        <div class="card" style="width: 50%;" id="posts">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+              <h5 class="card-title"> <%= post.username %> </h5>
+              <h6 class="card-subtitle mb-2 text-muted">@<%= "#{post.username}#{post.user_id}" %></h6>
+              </div>
+              <% if post.user == current_user %>
+              <p> <%= link_to "Edit", edit_post_path(post), class:"btn btn-sm btn-outline-primary" %> </p>
+              <% end %>
+            </div>
+            <p class="card-text"><%= post.content %></p>
+            <h6 class="card-subtitle mb-2 text-muted">Created at <%= post.created_at %> </h6>
+          </div>
+        </div>
+        <br/>
+      <% end %>
+    <% end %>
+  </div>
+
+  <br/>
+  
+  <%= link_to "New post", new_post_path, class:"btn btn-primary" %>
+<% else %>
+  <h1>Home#index</h1>
+  <p>Find me in app/views/home/index.html.erb</p>
+<% end %>
